@@ -3,17 +3,26 @@ package com.example.kuiper.model
 import android.os.Parcel
 import android.os.Parcelable
 
-data class NewsModel(var x: String) : Parcelable {
+data class NewsModel(var id: String) : Parcelable {
     var headline: String? = null
     var newsBody: String? = null
     var newsImageUrl: String? = null
     var newsFooter: String? = null
+    lateinit var newsID: String
 
-    constructor(parcel: Parcel) : this("ll") {
+    constructor(parcel: Parcel) : this("") {
         headline = parcel.readString()
         newsBody = parcel.readString()
         newsImageUrl = parcel.readString()
         newsFooter = parcel.readString()
+        newsID = parcel.readString()!!
+    }
+
+    constructor(id: String, headline: String?, newsBody: String?, newsImageUrl: String?, newsFooter: String?) : this(id){
+        this.headline = headline
+        this.newsBody = newsBody
+        this.newsFooter = newsFooter
+        this.newsImageUrl = newsImageUrl
     }
 
 
@@ -29,6 +38,7 @@ data class NewsModel(var x: String) : Parcelable {
         parcel.writeString(newsBody)
         parcel.writeString(newsImageUrl)
         parcel.writeString(newsFooter)
+        parcel.writeString(newsID)
     }
 
     override fun describeContents(): Int {
